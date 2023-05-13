@@ -37,7 +37,7 @@ data class TvShow(
     val vote_average: Double,
     val vote_count: Int
 )
-fun TvShow.toMovie(type:String): Movie {
+fun TvShow.toMovie(): Movie {
     val movieType: MovieType = MovieType.TvShow
     return Movie(
         id=id,

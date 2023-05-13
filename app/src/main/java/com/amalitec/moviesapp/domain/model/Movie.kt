@@ -1,5 +1,6 @@
 package com.amalitec.moviesapp.domain.model
 
+import com.amalitec.moviesapp.data.local.MovieEntity
 import com.amalitec.moviesapp.domain.util.MovieType
 
 data class Movie(
@@ -12,3 +13,12 @@ data class Movie(
     val backdropPath:String,
     val type:MovieType
 )
+fun Movie.toMovieEntity():MovieEntity{
+    val movieType:String = when(type){
+       is MovieType.Latest -> "latest"
+       is MovieType.TvShow -> "tvShow"
+       is MovieType.TopRated -> "topRated"
+        is MovieType.Featured -> "featured"
+    }
+    return MovieEntity(id,title,description,popularity,releaseDate,posterPath,backdropPath,movieType)
+}

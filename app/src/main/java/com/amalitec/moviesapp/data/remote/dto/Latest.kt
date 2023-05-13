@@ -30,7 +30,7 @@ data class Latest(
     val vote_average: Double,
     val vote_count: Int
 )
-fun Latest.toMovie(type:String): Movie {
+fun Latest.toMovie(): Movie {
     val movieType: MovieType = MovieType.Latest
     return Movie(
         id = id,
