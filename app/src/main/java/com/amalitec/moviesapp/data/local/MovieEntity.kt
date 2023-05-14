@@ -15,3 +15,13 @@ data class MovieEntity(
     val backdropPath:String,
     val type: String
 )
+fun MovieEntity.toMovie(): Movie {
+    val movieType = when (type) {
+        "latest" -> MovieType.Latest
+        "top_rated" -> MovieType.TopRated
+        "featured" -> MovieType.Featured
+        "tv_show" -> MovieType.TvShow
+        else -> throw IllegalArgumentException("Invalid movie type: $type")
+    }
+    return Movie(id!!, title, description, popularity, releaseDate, posterPath, backdropPath, movieType)
+}

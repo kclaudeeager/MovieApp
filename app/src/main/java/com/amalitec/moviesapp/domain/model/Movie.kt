@@ -16,8 +16,8 @@ data class Movie(
 fun Movie.toMovieEntity():MovieEntity{
     val movieType:String = when(type){
        is MovieType.Latest -> "latest"
-       is MovieType.TvShow -> "tvShow"
-       is MovieType.TopRated -> "topRated"
+       is MovieType.TvShow -> "tv_show"
+       is MovieType.TopRated -> "top_rated"
         is MovieType.Featured -> "featured"
     }
     return MovieEntity(id,title,description,popularity,releaseDate,posterPath,backdropPath,movieType)

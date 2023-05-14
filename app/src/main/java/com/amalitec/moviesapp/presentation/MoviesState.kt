@@ -1,4 +1,4 @@
-package com.amalitec.moviesapp.domain.local.usecase
+package com.amalitec.moviesapp.presentation
 
 import com.amalitec.moviesapp.domain.model.Movie
 
