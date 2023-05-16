@@ -5,18 +5,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.amalitec.moviesapp.domain.model.Movie
 import com.amalitec.moviesapp.presentation.Screen
+import kotlinx.coroutines.launch
 
 @Composable
 fun MoviesListScreen(
@@ -27,11 +26,13 @@ fun MoviesListScreen(
     navController: NavController
 ) {
     var nowPlayingMovie by mutableStateOf(featuredMovies.firstOrNull())
-
+    val listState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
     LazyColumn(
         modifier = Modifier
             .padding(bottom = 8.dp)
-            .fillMaxSize()
+            .fillMaxSize(),
+        state = listState
     ) {
         item {
             nowPlayingMovie?.let { movie ->
@@ -44,24 +45,38 @@ fun MoviesListScreen(
             SectionTitle(title = "Featured Movies")
             MovieList(featuredMovies) { movie ->
                 nowPlayingMovie = movie
+                coroutineScope.launch {
+                    listState.animateScrollToItem(index = 0)
+                }
+
             }
         }
         item {
             SectionTitle(title = "Latest Movies")
             MovieList(latestMovies) { movie ->
+
                 nowPlayingMovie = movie
+                coroutineScope.launch {
+                    listState.animateScrollToItem(index = 0)
+                }
             }
         }
         item {
             SectionTitle(title = "Top Rated Movies")
             MovieList(topRatedMovies) { movie ->
                 nowPlayingMovie = movie
+                coroutineScope.launch {
+                    listState.animateScrollToItem(index = 0)
+                }
             }
         }
         item {
             SectionTitle(title = "TV Shows")
             MovieList(tvShows) { movie ->
                 nowPlayingMovie = movie
+                coroutineScope.launch {
+                    listState.animateScrollToItem(index = 0)
+                }
             }
         }
     }
