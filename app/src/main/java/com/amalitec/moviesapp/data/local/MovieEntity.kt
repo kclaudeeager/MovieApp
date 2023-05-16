@@ -4,7 +4,8 @@ import androidx.room.PrimaryKey
 import com.amalitec.moviesapp.domain.model.Movie
 import com.amalitec.moviesapp.domain.util.MovieType
 
-@Entity
+@Entity("movie")
+
 data class MovieEntity(
     @PrimaryKey val id: Int? = null,
     val title:String,

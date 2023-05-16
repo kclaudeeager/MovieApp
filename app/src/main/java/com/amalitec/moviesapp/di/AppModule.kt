@@ -84,9 +84,9 @@ class AppModule {
         )
     }
 
-    @Provides
-    @Singleton
-    fun provideLocalViewModel(localUseCase: LocalUseCase) : LocalViewModel{
-        return LocalViewModel(localUseCase)
-    }
+//    @Provides
+//    @Singleton
+//    fun provideLocalViewModel(localUseCase: LocalUseCase) : LocalViewModel{
+//        return LocalViewModel(localUseCase)
+//    }
 }

@@ -7,13 +7,13 @@ import kotlinx.coroutines.flow.Flow
 interface MovieDto {
 
     @Query("SELECT * FROM movie")
-    fun getMovies(): Flow<List<MovieEntity>>
+     fun getMovies(): Flow<List<MovieEntity>>
 
     @Query("SELECT * FROM movie WHERE id = :id")
     suspend fun getMovieById(id: Int): MovieEntity?
 
     @Query("SELECT * FROM movie WHERE type = :type")
-    suspend fun getMovieByType(type: String):Flow<List<MovieEntity>>
+     fun getMovieByType(type: String):Flow<List<MovieEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMovie(movieEntity: MovieEntity)

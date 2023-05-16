@@ -37,8 +37,8 @@ fun Latest.toMovie(): Movie {
         title = title,
         description = overview,
         popularity = popularity,
-        posterPath = poster_path as String,
-        backdropPath = backdrop_path.toString(),
+        posterPath = ""+poster_path,
+        backdropPath = ""+backdrop_path,
         type = movieType,
         releaseDate = release_date
     )

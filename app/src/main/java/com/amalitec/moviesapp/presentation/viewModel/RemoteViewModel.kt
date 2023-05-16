@@ -30,7 +30,6 @@ class RemoteViewModel @Inject constructor(
     init {
         getRemoteAndSaveLocally()
     }
-
     private fun getRemoteAndSaveLocally() {
         sinchMoviesJob.cancel()
         sinchMoviesJob = Job()
@@ -38,14 +37,18 @@ class RemoteViewModel @Inject constructor(
         viewModelScope.launch(sinchMoviesJob) {
             suspend fun getMovies(getter: () -> Flow<Resource<List<Movie>>>) {
                 getter().collect { result ->
+
                     when (result) {
+
                         is Resource.Success -> {
+
                             _state.value = MoviesState(movies = result.data ?: emptyList())
                             state.value.movies.forEach { movie ->
                                 localUseCase.saveMovie(movie.toMovieEntity())
                             }
                         }
                         is Resource.Error -> {
+
                             _state.value = MoviesState(error = result.message ?: "Unexpected error occurred")
                         }
                         is Resource.Loading -> {
@@ -58,6 +61,7 @@ class RemoteViewModel @Inject constructor(
             getMovies { remoteUseCase.getFeaturedMovie() }
             getMovies { remoteUseCase.getTopRated() }
             getMovies { remoteUseCase.getTvShows() }
+            getMovies { remoteUseCase.getLatestMovies() }
         }
     }
 }

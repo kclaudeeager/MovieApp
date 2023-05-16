@@ -12,7 +12,9 @@ import javax.inject.Inject
 class RemoteMovieRepositoryImpl @Inject constructor(private val api: MovieApi) :
     RemoteMovieRepository {
    private val apiKey = BuildConfig.API_KEY
+
     override suspend fun getLatestMovies(): Latest {
+
        return api.getLatestMovies(apiKey)
     }
 
@@ -21,6 +23,7 @@ class RemoteMovieRepositoryImpl @Inject constructor(private val api: MovieApi) :
     }
 
     override suspend fun getTopRatedMovies(): TopRated {
+
      return api.getTopRatedMovies(apiKey)
     }
 

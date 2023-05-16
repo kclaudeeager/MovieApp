@@ -16,10 +16,10 @@ class GetTvShows @Inject constructor(
     operator fun invoke(): Flow<Resource<List<Movie>>> = flow {
         try {
             emit(Resource.Loading<List<Movie>>())
-            val featuredMovies = mutableListOf<Movie>()
-            val latestMovies=repository.getTVShows().toMovie()
-            featuredMovies.add(latestMovies)
-            emit(Resource.Success<List<Movie>>(featuredMovies))
+            val movies = mutableListOf<Movie>()
+            val tvShows=repository.getTVShows().toMovie()
+            movies.add(tvShows)
+            emit(Resource.Success<List<Movie>>(movies))
         } catch (e: HttpException) {
             emit(Resource.Error<List<Movie>>(e.localizedMessage ?: "An unexpected error occurred"))
         } catch (ex: IOException) {

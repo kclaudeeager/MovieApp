@@ -44,10 +44,10 @@ fun TvShow.toMovie(): Movie {
         title=name,
         description = overview,
         popularity=popularity,
-        posterPath = poster_path.toString(),
-        backdropPath = backdrop_path.toString(),
+        posterPath = ""+poster_path,
+        backdropPath = ""+backdrop_path,
         type = movieType,
-        releaseDate = last_air_date
+        releaseDate = ""+last_air_date
     )
 
 }
