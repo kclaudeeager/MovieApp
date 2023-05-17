@@ -25,7 +25,10 @@ fun MoviesListScreen(
     tvShows: List<Movie?>,
     navController: NavController
 ) {
-    var nowPlayingMovie by mutableStateOf(featuredMovies.firstOrNull())
+    var nowPlayingMovie by remember{
+        mutableStateOf(featuredMovies.firstOrNull())
+    }
+
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
     LazyColumn(
@@ -36,7 +39,9 @@ fun MoviesListScreen(
     ) {
         item {
             nowPlayingMovie?.let { movie ->
-                NowPlayingView(movie = movie, onPlayClick = {}, onDetailsClick = {
+                NowPlayingView(movie = movie, onPlayClick = {
+                          navController.navigate(Screen.MoviePlayScreen.route+"/${movie.id}")
+                }, onDetailsClick = {
                     navController.navigate(Screen.MovieDetailScreen.route + "/${movie.id}")
                 })
             }

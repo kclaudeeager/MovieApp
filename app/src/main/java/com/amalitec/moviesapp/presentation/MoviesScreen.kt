@@ -1,5 +1,6 @@
-package com.amalitec.moviesapp.presentation.components
+package com.amalitec.moviesapp.presentation
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -16,11 +17,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.amalitec.moviesapp.domain.util.MovieType
+import com.amalitec.moviesapp.presentation.components.MoviesListScreen
 import com.amalitec.moviesapp.presentation.viewModel.LocalViewModel
 import com.amalitec.moviesapp.presentation.viewModel.RemoteViewModel
 import kotlinx.coroutines.launch
 
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun MoviesScreen(
     remoteViewModel: RemoteViewModel = hiltViewModel(),
@@ -75,7 +78,7 @@ fun MoviesScreen(
                 }
                 if (state.isLoading){
                     run {
-                        showLoading()
+                        ShowLoading()
                     }
                 }
                 if(state.error.isNotBlank()) {
@@ -96,7 +99,7 @@ fun MoviesScreen(
 }
 
 @Composable
-fun showLoading(){
+fun ShowLoading(){
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
