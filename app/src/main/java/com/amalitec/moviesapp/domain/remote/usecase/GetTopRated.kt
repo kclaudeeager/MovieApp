@@ -17,11 +17,11 @@ class GetTopRated @Inject constructor(
     operator fun invoke(): Flow<Resource<List<Movie>>> = flow {
         try {
             emit(Resource.Loading<List<Movie>>())
-            val featuredMovies = mutableListOf<Movie>()
+            val topRatedMovies = mutableListOf<Movie>()
             repository.getTopRatedMovies().results.forEach { result: Result ->
-                featuredMovies.add(result.toMovie("topRated"))
+                topRatedMovies.add(result.toMovie("topRated"))
             }
-            emit(Resource.Success<List<Movie>>(featuredMovies))
+            emit(Resource.Success<List<Movie>>(topRatedMovies))
 
         } catch (e: HttpException) {
             emit(Resource.Error<List<Movie>>(e.localizedMessage ?: "An unexpected error occurred"))

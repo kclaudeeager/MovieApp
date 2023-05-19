@@ -21,23 +21,36 @@ class LocalViewModel @Inject constructor(
     private val _state = mutableStateOf(MoviesState())
     val state: State<MoviesState> = _state
 
+    init{
+        getAllMovies()
+    }
 
     fun getMoviesByType(type: String) {
+        _state.value = MoviesState(isLoading = true)
         viewModelScope.launch {
             val movieEntities = localUseCase.getMovieByType(type)
             movieEntities.collect { entityList ->
                 val movies = entityList.map { it.toMovie() }
-                _state.value = MoviesState(movies = movies)
+                _state.value = MoviesState(
+                    isLoading = false,
+                    error="",
+                    movies = movies
+                )
             }
         }
     }
 
 
-     fun getAllMovies() {
+    private  fun getAllMovies() {
+         _state.value = MoviesState(isLoading = true)
         viewModelScope.launch {
             localUseCase. getMovies().collect { movieEntities ->
                 val movies = movieEntities.map { it.toMovie() }
-                _state.value = MoviesState(movies = movies)
+                _state.value = MoviesState(
+                    isLoading = false,
+                    error="",
+                    movies = movies
+                )
             }
         }
     }

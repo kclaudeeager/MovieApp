@@ -38,7 +38,6 @@ class MainActivity : ComponentActivity() {
                             route = Screen.MoviesScreen.route
                         ) {
                             MoviesScreen(
-                                type = MovieType.Featured,
                                 navController = navController
                             )
                         }

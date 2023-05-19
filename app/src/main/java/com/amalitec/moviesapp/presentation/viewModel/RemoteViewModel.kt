@@ -33,7 +33,6 @@ class RemoteViewModel @Inject constructor(
     private fun getRemoteAndSaveLocally() {
         sinchMoviesJob.cancel()
         sinchMoviesJob = Job()
-
         viewModelScope.launch(sinchMoviesJob) {
             suspend fun getMovies(getter: () -> Flow<Resource<List<Movie>>>) {
                 getter().collect { result ->
