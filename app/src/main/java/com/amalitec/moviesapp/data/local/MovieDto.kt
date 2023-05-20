@@ -15,7 +15,7 @@ interface MovieDto {
     @Query("SELECT * FROM movie WHERE type = :type")
      fun getMovieByType(type: String):Flow<List<MovieEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Upsert
     suspend fun insertMovie(movieEntity: MovieEntity)
 
     @Delete
