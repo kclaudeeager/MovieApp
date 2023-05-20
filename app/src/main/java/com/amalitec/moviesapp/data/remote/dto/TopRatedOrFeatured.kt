@@ -1,6 +1,6 @@
 package com.amalitec.moviesapp.data.remote.dto
 
-data class Featured(
+data class TopRatedOrFeatured(
     val dates: Dates,
     val page: Int,
     val results: List<Result>,

@@ -3,6 +3,7 @@ package com.amalitec.moviesapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -10,11 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.amalitec.moviesapp.domain.util.MovieType
+import com.amalitec.moviesapp.presentation.MovieDetail
 import com.amalitec.moviesapp.presentation.MoviesScreen
 import com.amalitec.moviesapp.presentation.Screen
-import com.amalitec.moviesapp.presentation.MovieDetail
 import com.amalitec.moviesapp.presentation.VideoPlayer
+import com.amalitec.moviesapp.presentation.viewModel.MovieViewModel
 import com.amalitec.moviesapp.ui.theme.MoviesAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
