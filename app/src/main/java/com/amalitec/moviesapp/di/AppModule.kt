@@ -10,8 +10,7 @@ import com.amalitec.moviesapp.domain.local.usecase.*
 import com.amalitec.moviesapp.domain.remote.usecase.*
 import com.amalitec.moviesapp.domain.repository.LocalMovieRepository
 import com.amalitec.moviesapp.domain.repository.RemoteMovieRepository
-import com.amalitec.moviesapp.presentation.viewModel.LocalViewModel
-import com.amalitec.moviesapp.presentation.viewModel.RemoteViewModel
+import com.amalitec.moviesapp.presentation.viewModel.MovieViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,6 +22,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
+    
     @Provides
     @Singleton
     fun provideMovieApi(): MovieApi{
@@ -54,12 +54,10 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideRemoteUseCase(repository: RemoteMovieRepository) : RemoteUseCase{
+    fun provideRemoteUseCase(remoteRepository: RemoteMovieRepository,localMovieRepository: LocalMovieRepository) : RemoteUseCase{
       return RemoteUseCase(
-          getFeaturedMovie = GetFeaturedMovie(repository),
-          getLatestMovies = GetLatestMovies(repository),
-          getTopRated = GetTopRated(repository),
-          getTvShows = GetTvShows(repository)
+         remoteRepository,
+          localMovieRepository
       )
     }
 
@@ -67,7 +65,6 @@ class AppModule {
     @Singleton
     fun provideLocalUseCase(repository: LocalMovieRepository) : LocalUseCase{
         return LocalUseCase(
-            saveMovie = SaveMovie(repository),
             deleteMovie = DeleteMovie(repository),
             getMovieById = GetMovieById(repository),
             getMovieByType = GetMovieByType(repository),
@@ -77,16 +74,12 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideRemoteViewModel(localUseCase: LocalUseCase,remoteUseCase: RemoteUseCase) :RemoteViewModel{
-        return RemoteViewModel(
-            remoteUseCase,
-            localUseCase
+    fun provideRemoteViewModel(localUseCase: LocalUseCase,remoteUseCase: RemoteUseCase) :MovieViewModel{
+        return MovieViewModel(
+            localUseCase,
+            remoteUseCase
+
         )
     }
 
-//    @Provides
-//    @Singleton
-//    fun provideLocalViewModel(localUseCase: LocalUseCase) : LocalViewModel{
-//        return LocalViewModel(localUseCase)
-//    }
 }
